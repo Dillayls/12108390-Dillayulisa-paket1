@@ -12,25 +12,68 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $fillable = ['id', 'name', 'email', 'username', 'password', 'telepon', 'address', 'role', 'gambar'];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'username',
+        'email',
+        'password',
+        'nama_lengkap',
+        'alamat',
+        'role',
+    ];
 
-    protected $hidden = ['password', 'remember_token'];
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-    protected $casts = ['email_verified_at' => 'datetime', 'password' => 'hashed'];
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 
-    protected $guarded = [];
-
-    protected $primaryKey = 'id';
-
-    protected $table = 'users';
-
-    public function review()
+    public function hasRole($roleName)
     {
-        return $this->hasMany(Review::class, 'user_id');
+        // Memeriksa apakah nilai kolom 'role' pada pengguna sama dengan $roleName
+        return $this->role === $roleName;
     }
 
-    public function collection()
+    public function role()
     {
-        return $this->hasMany(Collection::class, 'user_id');
+        return $this->belongsTo(Role::class);
+    }
+
+    public function koleksipribadi()
+    {
+        return $this->hasMany(KoleksiPribadi::class);
+    }
+
+    public function buku()
+    {
+        return $this->belongsToMany(Buku::class, 'koleksipribadi');
+    }
+
+    public function ulasan()
+    {
+        return $this->hasMany(Ulasan::class);
+    }
+
+    public function peminjamen()
+    {
+        return $this->hasMany(Peminjaman::class);
     }
 }
