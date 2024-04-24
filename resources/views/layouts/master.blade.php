@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
+    <style>
+        .sidebar{
+            background-color: #3C5B6F;
+        }
+    </style>
 <head>
 
     <meta charset="utf-8">
@@ -28,12 +32,12 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fa fa-cube"></i>
                 </div>
             </a>
 
@@ -42,8 +46,8 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="{{route('admin-page')}}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                <a class="nav-link" href="{{route('admin-page')}}" style="color: white;">
+                    <i class="fa fa-cubes"></i>
                     <span>Dashboard</span></a>
             </li>
 
@@ -52,28 +56,28 @@
 
 
             <li class="nav-item">
-                <a class="nav-link" href="/data-petugas">
+                <a class="nav-link" href="/data-staff">
                     <i class="fas fa-fw fa-table"></i>
                     <span>User</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/data-kategori">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fa fa-clone"></i>
                     <span>Book Category</span></a>
             </li>
 
              <!-- Nav Item - Charts -->
              <li class="nav-item">
                 <a class="nav-link" href="/data-peminjaman">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fa fa-check"></i>
                     <span>Book Borrowed</span></a>
             </li>
 
              <!-- Nav Item - Charts -->
              <li class="nav-item">
                 <a class="nav-link" href="/buku">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fa fa-book"></i>
                     <span>Book</span></a>
             </li>
 
@@ -83,9 +87,9 @@
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
+            {{-- <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+            </div> --}}
 
         </ul>
         <!-- End of Sidebar -->
@@ -105,6 +109,7 @@
                     </button>
 
                     <!-- Topbar Navbar -->
+                    <h2>Selamat Datang, Admin</h2>
                     <ul class="navbar-nav ml-auto">
     <!-- Nav Item - User Information -->
     <li class="nav-item dropdown no-arrow">
@@ -181,5 +186,9 @@
 
             <!-- Core plugin JavaScript-->
             <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+             <!-- Drop Down -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
             <!-- Custom scripts for all pages

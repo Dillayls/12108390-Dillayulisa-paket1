@@ -15,34 +15,30 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
         User::create([
+            'nama' => 'Admin',
             'username' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => 'admin123',
-            'nama_lengkap' => 'Admin Perpustakaan',
             'alamat' => 'Bogor, Jawa Bart',
             'role' => 'admin',
         ]);
 
-        // User::create([
-        //     'username' => 'petugas',
-        //     'email' => 'petugas@gmail.com',
-        //     'password' => 'petugas123',
-        //     'nama_lengkap' => 'Petugas Perpustakaan',
-        //     'alamat' => 'Bogor, Jawa Bart',
-        //     'role' => 'petugas',
-        // ]);
+        User::create([
+            'nama' => 'Staff',
+            'username' => 'staffperpus',
+            'email' => 'staff@gmail.com',
+            'password' => 'staff123',
+            'alamat' => 'Bogor',
+            'role' => 'staff',
+        ]);
 
         // User::create([
-        //     'username' => 'peminjam',
+        //     'nama' => 'Peminjam Perpustakaan',
+        //     'username' => 'peminjamperpus',
         //     'email' => 'peminjam@gmail.com',
         //     'password' => 'peminjam123',
-        //     'nama_lengkap' => 'Peminjam Perpustakaan',
-        //     'alamat' => 'Bogor, Jawa Bart',
+        //     'alamat' => 'Bogor',
         //     'role' => 'peminjam',
         // ]);
     }

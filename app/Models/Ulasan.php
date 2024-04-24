@@ -9,13 +9,12 @@ class Ulasan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'user_id', 'buku_id', 'ulasan', 'rating'];
-
-    protected $guarded = [];
-
-    protected $primaryKey = 'id';
-
-    protected $table = 'ulasan';
+    protected $fillable = [
+        'user_id',
+        'buku_id',
+        'ulasan',
+        'rating',
+    ];
 
     public function user()
     {

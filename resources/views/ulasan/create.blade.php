@@ -1,5 +1,5 @@
 
-@extends('layouts.master')
+@extends('peminjam.dashboard-page')
 
 @section('content')
     <div class="container">
@@ -16,7 +16,7 @@
                 </select>
             </div>
 
-            <!-- <div class="form-group">
+             <div class="form-group">
                 <label for="rating">Rating:</label><br>
                 <input type="radio" id="satu" name="rating" value="1">
                 <label for="satu">1</label>
@@ -28,14 +28,7 @@
                 <label for="empat">4</label>
                 <input type="radio" id="lima" name="rating" value="5">
                 <label for="lima">5</label>
-            </div> -->
-            <div class="form-group">
-            <label for="rating">Rating:</label><br>
-            @for ($i = 1; $i <= 5; $i++)
-                <input type="radio" id="{{ $i }}" name="rating" value="{{ $i }}">
-                <label for="{{ $i }}">{{ $i }}</label>
-            @endfor
-        </div>
+            </div>
 
             <div class="form-group">
                 <label for="ulasan">Ulasan:</label>
@@ -45,6 +38,6 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
 
-        
+
     </div>
 @endsection

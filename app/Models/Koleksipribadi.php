@@ -16,12 +16,12 @@ class Koleksipribadi extends Model
     public function user()
     {
         //  setiap Koleksipribadi milik satu User
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function buku()
     {
         // setiap Koleksipribadi milik satu Buku
-        return $this->belongsTo(Buku::class);
+        return $this->belongsTo(Buku::class, 'buku_id');
     }
 }

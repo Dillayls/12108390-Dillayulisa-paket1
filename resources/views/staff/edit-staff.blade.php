@@ -3,7 +3,6 @@
 @section('content')
   <section class="section">
     <div class="section-header">
-      <h1>Create Account Petugas</h1>
       <!-- <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
         <div class="breadcrumb-item"><a href="#">Buat Accountn</a></div>
@@ -14,13 +13,13 @@
       <!-- <h2 class="section-title">Buat Account</h2> -->
       <p class="section-lead"></p>
       <br>
-      <form method="POST" action="{{route('updatePetugas', $data->user_id)}}" enctype="multipart/form-data">   
+      <form method="POST" action="{{route('updateStaff', $data->id)}}" enctype="multipart/form-data">
         @csrf
         <div class="row">
         <div class="col-md-8 offset-md-2">
           <div class="card">
             <div class="card-header">
-              <h4>Form Petugas</h4>
+              <h4>Edit Data</h4>
             </div>
             <div class="card-body">
               <div class="form-group row">
@@ -42,9 +41,9 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label for="nama_lengkap" class="col-sm-3 col-form-label">Nama Lengkap</label>
+                <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
                 <div class="col-sm-5">
-                  <input type="text" class="form-control" name="nama_lengkap" value="{{$data->nama_lengkap}}">
+                  <input type="text" class="form-control" name="nama" value="{{$data->nama}}">
                 </div>
               </div>
               <div class="form-group row">
@@ -58,7 +57,8 @@
                 <label for="role" class="col-sm-3 col-form-label">Role</label>
                 <div class="col-sm-5">
                   <select class="form-control" id="role" name="role" required>
-                    <option value="petugas">Petugas</option>
+                    <option value="admin">Admin</option>
+                    <option value="staff">Staff</option>
                     <option value="peminjam">Peminjam</option>
                   </select>
                 </div>

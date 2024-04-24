@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('koleksipribadi', function (Blueprint $table) {
+        Schema::create('koleksipribadis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('buku_id');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
 
             // Menambahkan foreign key constraint untuk buku_id
-            $table->foreign('buku_id')->references('id')->on('buku');
+            $table->foreign('buku_id')->references('id')->on('bukus');
         // });
     });
     }
@@ -33,11 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Schema::table('koleksipribadi', function (Blueprint $table) {
-        //     $table->dropForeign(['user_id']);
-        //     $table->dropForeign(['buku_id']);
-        // });
-
-        Schema::dropIfExists('koleksipribadi');
+        Schema::dropIfExists('koleksipribadis');
     }
 };

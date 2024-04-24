@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<style>
+    .navbar-nav{
+        background-color: #3C5B6F;
+    }
+</style>
 <head>
 
     <meta charset="utf-8">
@@ -28,14 +33,13 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/peminjam">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fa fa-cube"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Peminjam</div>
 
             </a>
 
@@ -48,7 +52,7 @@
 <!-- Nav Item - Charts -->
 <li class="nav-item">
 <a class="nav-link" href="/perpustakaan-buku">
-<i class="fas fa-fw fa-chart-area"></i>
+<i class="fa fa-book"></i>
 <span>Book</span></a>
 </li>
 
@@ -56,14 +60,14 @@
 <!-- Nav Item - Charts -->
 <li class="nav-item">
 <a class="nav-link" href="/riwayat-peminjam">
-<i class="fas fa-fw fa-chart-area"></i>
+<i class="fa fa-check-square"></i>
 <span>Book Borrowed</span></a>
 </li>
 
 <!-- Nav Item - Charts -->
 <li class="nav-item">
 <a class="nav-link" href="/koleksi-peminjam">
-<i class="fas fa-fw fa-chart-area"></i>
+<i class="fa fa-bookmark"></i>
 <span>Book Collection</span></a>
 </li>
 
@@ -94,12 +98,12 @@
                     </button>
 
                     <!-- Topbar Navbar -->
-                    <h2>Peminjam</h2>
+                    <h2>Selamat Datang, User</h2>
                     <ul class="navbar-nav ml-auto">
     <!-- Nav Item - User Information -->
     <li class="nav-item dropdown no-arrow">
         @auth
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+        <a class="nav-link dropdown-toggle bg-white" href="#" id="userDropdown" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->username ?? '' }}</span>
             <!-- <img class="img-profile rounded-circle" src="img/undraw_profile.svg"> -->
@@ -182,5 +186,8 @@
 
             <!-- Core plugin JavaScript-->
             <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Drop Down -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
             <!-- Custom scripts for all pages

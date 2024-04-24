@@ -16,8 +16,8 @@ class UserController extends Controller
         return view('layouts.master');
     }
 
-    public function petugas(){
-        return view('petugas.dashboard-petugas');
+    public function staff(){
+        return view('staff.dashboard-staff');
     }
 
     public function peminjam()
@@ -31,62 +31,63 @@ class UserController extends Controller
         return view('admin.admin-page', compact('buku'));
     }
 
-    // tampilan create account petugas
-    public function createPetugas(){
-        return view('petugas.create-petugas');
+    // tampilan create account staff
+    public function createStaff(){
+        return view('staff.create-staff');
     }
 
-    public function storePetugas(Request $request)
+    public function storeStaff(Request $request)
     {
         $validatedData = $request->validate([
+            'nama' => 'required|string',
             'username' => 'required|string',
-            'password' => 'required|string',
             'email' => 'required|email',
-            'nama_lengkap' => 'required|string',
+            'password' => 'required|string',
             'alamat' => 'required|string',
-            'role' => 'required|in:admin,petugas,peminjam',
+            'role' => 'required|in:admin,staff,peminjam',
         ]);
         User::create([
+            'nama' => $validatedData['nama'],
             'username' => $validatedData['username'],
-            'password' => Hash::make($validatedData['password']),
             'email' => $validatedData['email'],
-            'nama_lengkap' => $validatedData['nama_lengkap'],
+            'password' => Hash::make($validatedData['password']),
             'alamat' => $validatedData['alamat'],
             'role' => $validatedData['role'],
         ]);
 
-       return redirect()->route('indexDataPetugas');
+       return redirect()->route('indexDataStaff');
     }
 
-    public function updatePetugas(Request $request, $user_id)
+    public function updateStaff(Request $request, $user_id)
     {
         User::where('user_id', $user_id)->update([
+            'nama' => $request->nama,
             'username' => $request->username,
-            'password' => Hash::make($request->password),
             'email' => $request->email,
-            'nama_lengkap' => $request->nama_lengkap,
+            'password' => Hash::make($request->password),
             'alamat' => $request->alamat,
             'role' => $request->role,
         ]);
 
-       return redirect()->route('indexDataPetugas');
+       return redirect()->route('indexDataStaff');
     }
 
-    public function editPetugas($user_id){
+    public function editStaff($user_id){
         $data = User::get();
         $data = User::where('id', $user_id)->first();
-        return view('petugas.edit-petugas', ['data' => $data]);
+        return view('staff.edit-staff', ['data' => $data]);
     }
 
-    public function deletePetugas($user_id){
+    public function deleteStaff($user_id){
         User::where('id', $user_id)->Delete();
-        return redirect(route('indexDataPetugas'));
+        return redirect(route('indexDataStaff'));
     }
 
-    public function indexDataPetugas(){
-       
+    public function indexDataStaff(){
+
         $data = User::all();
 
-        return view('petugas.data-petugas', compact('data'));
+        return view('staff.data-staff', compact('data'));
     }
+
 }

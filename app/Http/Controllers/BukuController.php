@@ -6,9 +6,42 @@ use App\Models\Buku;
 use Illuminate\Http\Request;
 use App\Http\Controllers\KategoriController;
 use App\Models\Kategori;
+use Illuminate\Storage;
+use Illuminate\Support\Facades\Storage as FacadesStorage;
+use Dompdf\Dompdf;
 
 class BukuController extends Controller
 {
+    private function generatePDF($view, $data, $filename){
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml(view($view, $data)->render());
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        return $dompdf->stream($filename);
+
+    }
+
+    public function exportBooksPDF(Request $request)
+    {
+        $query = Buku::query();
+
+        // Lakukan filter berdasarkan kata kunci pencarian
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('judul', 'like', '%' . $search . '%')
+                  ->orWhere('penulis', 'like', '%' . $search . '%')
+                  ->orWhere('penerbit', 'like', '%' . $search . '%')
+                  ->orWhere('tahun_terbit', 'like', '%' . $search . '%');
+            });
+        }
+
+        $bukus = $query->get();
+
+        return $this->generatePDF('pdf.buku', compact('bukus'), 'book.pdf');
+    }
+
     public function createBuku()
     {
         $kategori = Kategori::all();
@@ -25,7 +58,7 @@ class BukuController extends Controller
         'penulis' => 'required|string',
         'penerbit' => 'required|string',
         'tahun_terbit' => 'required|integer',
-        'kategori_id' => 'required|exists:kategori,id', // Pastikan kategori_id ada dalam tabel kategoris
+        'kategori_id' => 'required|exists:kategoris,id', // Pastikan kategori_id ada dalam tabel kategoris
         'cover' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -62,10 +95,24 @@ class BukuController extends Controller
         return redirect()->route('dataBuku');
     }
 
-    public function showBuku(Buku $buku)
+    public function showBuku(Request $request)
     {
-        $buku = Buku::with('kategori')->get();
-        // $kategori = Kategoribuku::all();
+
+        $query = Buku::latest();
+
+        // Lakukan filter berdasarkan kata kunci pencarian
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('judul', 'like', '%' . $search . '%')
+                  ->orWhere('penulis', 'like', '%' . $search . '%')
+                  ->orWhere('penerbit', 'like', '%' . $search . '%')
+                  ->orWhere('tahun_terbit', 'like', '%' . $search . '%');
+            });
+        }
+
+        $buku = $query->get();
+
         return view('buku.buku', compact('buku'));
     }
 
@@ -78,12 +125,12 @@ class BukuController extends Controller
 
     }
 
-    public function updateBuku(Request $request, $buku_id)
+    public function updateBuku(Request $request, $buku_id, $buku)
     {
         // Check if a new cover file is uploaded
             if ($request->hasFile('cover')) {
         // Delete old cover file if exists
-            Storage::delete($buku->cover);
+            FacadesStorage::delete($buku->cover);
 
         // Upload new cover file
             $coverPath = $request->file('cover')->store('covers');

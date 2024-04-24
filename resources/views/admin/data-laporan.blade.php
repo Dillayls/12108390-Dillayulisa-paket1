@@ -4,13 +4,22 @@
 <div class="page-breadcrumb">
     <div class="row align-items-center">
         <div class="col-6">
-            <h1 class="mb-0 fw-bold">History</h1>
+            {{-- <h1 class="mb-0 fw-bold">Data Peminjam</h1> --}}
             <br></br>
         </div>
     </div>
 </div>
 
 <div class="container-fluid">
+<div class="d-flex">
+    {{-- <div class="col text-end mb-2">
+        <a href="{{ route('peminjaman.export.pdf') }}" class="btn btn-success">Export to PDF</a>
+    </div> --}}
+    <form action="" method="POST">
+        @csrf
+        <input name="search" value="" type="text" hidden>
+    </form>
+</div>
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -21,6 +30,11 @@
                     </div>
                     <div class="table-responsive">
                         <table class="table">
+                            <form action="" method="GET">
+                                <div class="input-group">
+                                    <h2>Data Peminjam</h2>
+                                    </div>
+                            </form>
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>

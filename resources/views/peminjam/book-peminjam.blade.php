@@ -51,32 +51,33 @@
                                     </form>
                                 @endif
                             @endif -->
+
                             @if(auth()->check())
                             @php
-            $userCollection = auth()->user()->peminjamen;
-        $userBorrowedBooks = auth()->user()->peminjamen->pluck('buku_id')->toArray();
-    @endphp
-    @if($userCollection && $userCollection->contains('buku_id', $bk->id))
-        @if($userCollection->where('buku_id', $bk->id)->first()->status_peminjaman == 'dipinjam')
-            <!-- Check if the book is borrowed by the user -->
-            <button class="btn btn-primary mt-2 btn-sm" disabled>Book Borrowed</button>
-        @else
-            <!-- Check if the book is returned by the user -->
-            @if(in_array($bk->id, $userBorrowedBooks))
-                <form action="{{ route('borrowBook', ['buku' => $bk->id]) }}" method="post">
+                                $userCollection = auth()->user()->peminjamen;
+                                $userBorrowedBooks = auth()->user()->peminjamen->pluck('buku_id')->toArray();
+                            @endphp
+                            @if($userCollection && $userCollection->contains('buku_id', $bk->id))
+                            @if($userCollection->where('buku_id', $bk->id)->first()->status_peminjaman == 'dipinjam')
+                                <!-- Check if the book is borrowed by the user -->
+                                <button class="btn btn-primary mt-2 btn-sm" disabled>Buku Dipinjam</button>
+                            @else
+                                <!-- Check if the book is returned by the user -->
+                                @if(in_array($bk->id, $userBorrowedBooks))
+                            <form action="{{ route('borrowBook', ['buku' => $bk->id]) }}" method="post">
                     @csrf
                     <input type="hidden" name="buku_id" value="{{ $bk->id }}">
-                    <button type="submit" class="btn btn-primary mt-2 btn-sm">Borrow Book</button>
+                    <button type="submit" class="btn btn-primary mt-2 btn-sm">Pinjam Buku</button>
                 </form>
             @else
-                <button class="btn btn-primary mt-2 btn-sm" disabled>Book Borrowed</button>
+                <button class="btn btn-primary mt-2 btn-sm" disabled>Buku dipinjam</button>
             @endif
         @endif
     @else
         <form action="{{ route('borrowBook', ['buku' => $bk->id]) }}" method="post">
             @csrf
             <input type="hidden" name="buku_id" value="{{ $bk->id }}">
-            <button type="submit" class="btn btn-primary mt-2 btn-sm">Borrow Book</button>
+            <button type="submit" class="btn btn-primary mt-2 btn-sm">Pinjam Buku</button>
         </form>
     @endif
 @endif
@@ -86,15 +87,15 @@
 
                                 @if(auth()->check())
                                     @php
-                                       $userCollection = auth()->user()->koleksipribadi;
+                                       $userCollection = auth()->user()->koleksipribadis;
                                     @endphp
                                     @if($userCollection && $userCollection->contains('buku_id', $bk->id))
-                                        <button class="btn btn-success mt-2 btn-sm" disabled>Book already in your collection</button>
+                                        <button class="btn btn-success mt-2 btn-sm" disabled>Buku berada di koleksi anda</button>
                                     @else
                                         <form action="{{ route('addKeranjang', ['buku' => $bk->id]) }}" method="post">
                                             @csrf
                                             <input type="hidden" name="buku_id" value="{{ $bk->id }}">
-                                            <button type="submit" class="btn btn-success mt-2 btn-sm">Add to Collection</button>
+                                            <button type="submit" class="btn btn-success mt-2 btn-sm">Tambah ke koleksi</button>
                                         </form>
                                     @endif
                                 @endif
@@ -108,9 +109,9 @@
                                 @if(in_array($bk->id, $userBorrowedBooks))
                                     <!-- Check if the user has already reviewed the book -->
                                     @if(isset($userReview[$bk->id]) && $userReview[$bk->id])
-                                        <a href="{{ route('editReviewForm', ['id' => $bk->id]) }}" class="btn btn-warning mt-2 btn-sm">Edit Review</a>
+                                        <a href="{{ route('editReviewForm', ['id' => $bk->id]) }}" class="btn btn-warning mt-2 btn-sm">Edit Ulasan</a>
                                     @else
-                                        <a href="{{ route('createUlasan', ['id' => $bk->id]) }}" class="btn btn-info mt-2 btn-sm">Review</a>
+                                        <a href="{{ route('createUlasan', ['id' => $bk->id]) }}" class="btn btn-info mt-2 btn-sm">Ulasan</a>
                                     @endif
                                 @endif
                             @endif

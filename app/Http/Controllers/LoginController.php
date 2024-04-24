@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Session;
 use App\Models\User;
-use Session;
 
 class LoginController extends Controller
 {
@@ -26,10 +27,10 @@ class LoginController extends Controller
 
             if(Auth::user()->role == 'admin') {
                 return redirect()->intended('/admin-page');
-            } elseif (Auth::user()->role == 'petugas') {
-                return redirect()->intended('/petugas-page');
+            } elseif (Auth::user()->role == 'staff') {
+                return redirect()->intended('/staff-page');
             } elseif (Auth::user()->role == 'peminjam') {
-                return redirect()->intended('/peminjam-page');
+                return redirect()->intended('/perpustakaan-buku');
             }
         }
         return back()->with('loginError', 'Login error! Email atau Password salah');
@@ -42,17 +43,16 @@ class LoginController extends Controller
     // data untuk regsiter
     public function actionregister(Request $request)
     {
-        $user = User::create([
+        User::create([
+            'nama' => $request->nama,
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'nama_lengkap' => $request->nama_lengkap,
             'alamat' => $request->alamat,
             'role' => $request->role,
         ]);
 
-        Session::flash('message', 'Register Berhasil. Akun Anda sudah Aktif silahkan Login menggunakan username dan password.');
-        return redirect()->route('login');
+        return redirect()->route('login')->with('message', 'Register Berhasil. Akun Anda sudah Aktif silahkan Login menggunakan username dan password.');;
     }
 
      // logout
@@ -63,3 +63,4 @@ class LoginController extends Controller
         return redirect('/login');
     }
 }
+

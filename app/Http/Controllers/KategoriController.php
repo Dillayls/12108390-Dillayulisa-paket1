@@ -22,7 +22,6 @@ class KategoriController extends Controller
     }
 
     public function indexDataKategori(){
-
         $kategori = Kategori::all();
         return view('buku.kategori', compact('kategori'));
     }

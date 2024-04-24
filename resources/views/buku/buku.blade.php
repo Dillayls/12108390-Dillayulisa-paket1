@@ -3,11 +3,16 @@
 
 <section class="section">
     <div class="section-header">
-        <h3 class="section-title">BOOK Collection
+        <h3 class="section-title">Buku
             <a href="{{ route('createBuku') }}" title="Tambah Data" style="float: right; margin-right: 2%"
-                class="btn btn-primary mr-1">Tambah Buku</a>
+                class="btn btn-success mr-1">Tambah Buku</a>
         </h3>
+        <a href="{{ route('exportBooksPDF', ['search' => request()->query('search')]) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><i class="fa fa-download"></i></a>
         <table id="data-admin" class="table table-striped table-bordered table-md" style="width: 100%; margin-top:5%; padding:2%;" cellspacing="1">
+            <form action="{{ route('dataBuku') }}" method="GET">
+                <input type="text" name="search" placeholder="Search..." value="{{ request()->search }}">
+                <button type="submit">Search</button>
+            </form>
             <thead>
                 <tr>
                     <th>No</th>
@@ -33,7 +38,7 @@
                         {{$bk->kategori->nama_kategori}}
                     </td>
                     <td>
-                        <a href="{{ route('editBuku', ['id' => $bk->id]) }}" class="btn btn-primary mr-1">
+                        <a href="{{ route('editBuku', ['id' => $bk->id]) }}" class="btn btn-success mr-1">
                             <i class="fas fa-edit"></i>
                         </a>
                         <a href="{{ route('deleteBuku', ['id' => $bk->id]) }}" class="btn btn-danger mr-1">

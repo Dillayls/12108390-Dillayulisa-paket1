@@ -21,12 +21,12 @@ class Buku extends Model
         return $this->belongsTo(Kategori::class);
     }
 
-    public function koleksipribadi()
+    public function koleksipribadis()
     {
         return $this->hasMany(KoleksiPribadi::class);
     }
 
-    public function ulasan()
+    public function ulasans()
     {
         return $this->hasMany(Ulasan::class);
     }

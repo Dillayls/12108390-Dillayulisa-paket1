@@ -18,10 +18,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'nama',
         'username',
         'email',
         'password',
-        'nama_lengkap',
         'alamat',
         'role',
     ];
@@ -46,28 +46,17 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function hasRole($roleName)
-    {
-        // Memeriksa apakah nilai kolom 'role' pada pengguna sama dengan $roleName
-        return $this->role === $roleName;
+    public function buku(){
+        // hasMany() untuk menunjukkan bahwa satu kategori dapat memiliki banyak buku
+        return $this->hasMany(Buku::class, 'user_id');
     }
 
-    public function role()
+    public function koleksipribadis()
     {
-        return $this->belongsTo(Role::class);
+        return $this->hasMany(Koleksipribadi::class);
     }
 
-    public function koleksipribadi()
-    {
-        return $this->hasMany(KoleksiPribadi::class);
-    }
-
-    public function buku()
-    {
-        return $this->belongsToMany(Buku::class, 'koleksipribadi');
-    }
-
-    public function ulasan()
+    public function ulasans()
     {
         return $this->hasMany(Ulasan::class);
     }
